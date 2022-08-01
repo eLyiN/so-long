@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 00:40:08 by W2Wizard          #+#    #+#             */
-/*   Updated: 2022/08/01 15:19:37 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/01 17:40:01 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int ac, char *av[])
 			error_msg(WRONG_MAP);
 		mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
 		if (!mlx)
-			error_msg("Something goes wrong, try again.");
+			error_msg("Something goes wrong, try it again.");
 		g_img = mlx_new_image(mlx, 128, 128);
 		ft_memset(g_img->pixels, 255, g_img->width * g_img->height
 				* sizeof(int));

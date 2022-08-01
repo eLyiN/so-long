@@ -6,7 +6,7 @@
 #    By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/01 09:08:07 by aarribas          #+#    #+#              #
-#    Updated: 2022/08/01 15:16:57 by aarribas         ###   ########.fr        #
+#    Updated: 2022/08/01 19:09:52 by aarribas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 
 NAME	= so_long
 CFLAGS	= -Wall -Werror -Wextra
-LINUX_FLAGS = -ldl -lglfw -pthread -lm
+LIN_FL	= -ldl -lglfw -pthread -lm
+MAC_FL	= -lglfw -L "/Users/aarribas/.brew/Cellar/glfw/3.3.8/lib" 
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/libft
 
@@ -48,7 +49,7 @@ libmlx:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(L_FLAGS) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(MAC_FL) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -f $(OBJS)
