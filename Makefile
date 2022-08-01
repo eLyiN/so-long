@@ -6,20 +6,20 @@
 #    By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/01 09:08:07 by aarribas          #+#    #+#              #
-#    Updated: 2022/08/01 09:48:46 by aarribas         ###   ########.fr        #
+#    Updated: 2022/08/01 15:16:57 by aarribas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # //= Variables =//
 
 NAME	= so_long
-CFLAGS	= -w -Wunreachable-code -Ofast -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra
+LINUX_FLAGS = -ldl -lglfw -pthread -lm
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/libft
-SO_LONG_H = ./includes
 
-HEADERS	= -I ./include -I $(LIBMLX)/include -I $(LIBFT) -I $(SO_LONG_H)
-LIBS	= -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
+HEADERS	= -I ./includes -I $(LIBMLX)/include -I $(LIBFT)
+LIBS	= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
 SRCS	= $(shell find ./src -iname "*.c")
 OBJS	= ${SRCS:.c=.o}
 
@@ -48,7 +48,7 @@ libmlx:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(L_FLAGS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -f $(OBJS)
