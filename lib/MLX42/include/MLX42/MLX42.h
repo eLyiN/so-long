@@ -42,8 +42,8 @@ typedef struct mlx_texture
 {
 	uint32_t	width;
 	uint32_t	height;
-	uint8_t*	pixels;
 	uint8_t		bytes_per_pixel;
+	uint8_t*	pixels;
 }	mlx_texture_t;
 
 /**
@@ -154,6 +154,7 @@ typedef enum mlx_errno
 	MLX_INVXPM,			// Something is wrong the given XPM file.
 	MLX_INVPOS,			// The specified X/Y positions are out of bounds.
 	MLX_INVDIM,			// The specified W/H dimensions are out of bounds.
+	MLX_INVIMG,			// The provided image is invalid, might indicate mismanagement of images.
 	MLX_SHDRFAIL,		// Failed to compile a shader.
 	MLX_MEMFAIL,		// Dynamic memory allocation has failed.
 	MLX_GLADFAIL,		// OpenGL loader has failed.
@@ -439,21 +440,29 @@ void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y);
 void mlx_set_cursor_mode(mlx_t* mlx, mouse_mode_t mode);
 
 /**
+ * Retrieves the system standart cursor.
+ * 
+ * @param[in] type The standart cursor type to create.
+ * @return The cursor object or null on failure.
+ */
+void* mlx_create_std_cursor(cursor_t type);
+
+/**
  * Allows for the creation of custom cursors with a given texture.
  * 
  * Use mlx_set_cursor to select the specific cursor.
  * Cursors are destroyed at mlx_terminate().
  * 
  * @param[in] texture The texture to use as cursor.
- * @returns The cursor object.
+ * @returns The cursor object or null on failure.
  */
 void* mlx_create_cursor(mlx_texture_t* texture);
 
 /**
- * Sets the current cursor to the given custom cursor.
+ * Sets the current cursor to the given custom cursor. 
  * 
  * @param[in] mlx The MLX instance handle.
- * @param[in] cursor The cursor object to display.
+ * @param[in] cursor The cursor object to display, if null default cursor is selected.
  */
 void mlx_set_cursor(mlx_t* mlx, void* cursor);
 
@@ -561,7 +570,7 @@ void mlx_delete_texture(mlx_texture_t* texture);
  * This will not remove any already drawn XPMs, it simply
  * deletes the XPM buffer.
  * 
- * @param xpm[in] The xpm texture to delete.
+ * @param[in] xpm The xpm texture to delete.
  */
 void mlx_delete_xpm42(xpm_t* xpm);
 

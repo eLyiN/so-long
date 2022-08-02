@@ -6,7 +6,7 @@
 #    By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/01 09:08:07 by aarribas          #+#    #+#              #
-#    Updated: 2022/08/01 19:09:52 by aarribas         ###   ########.fr        #
+#    Updated: 2022/08/01 23:17:23 by aarribas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ libmlx:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(MAC_FL) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(LIN_FL) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -f $(OBJS)

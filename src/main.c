@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 00:40:08 by W2Wizard          #+#    #+#             */
-/*   Updated: 2022/08/01 17:40:01 by aarribas         ###   ########.fr       */
+/*   Created: 2022/08/03 00:22:50 by aarribas          #+#    #+#             */
+/*   Updated: 2022/08/03 00:33:05 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,38 @@
 
 static mlx_image_t	*g_img;
 
-int	check_av_map(char *av)
-{
-	while (*av)
-	{
-		if (*av == '.')
-		{
-			if (!ft_strncmp(av, ".ber\0", 5))
-				return (EXIT_SUCCESS);
-			else
-				return (EXIT_FAILURE);
-		}
-		av++;
-	}
-	return (EXIT_FAILURE);
-}
-
-void	error_msg(char *error)
-{
-	ft_putendl_fd("Error\n", STDERR_FILENO);
-	ft_putendl_fd(error, STDERR_FILENO);
-	exit(EXIT_FAILURE);
-}
-
 void	hook(void *param)
-{
-	if (mlx_is_key_down(param, MLX_KEY_W))
-		g_img->instances[0].y -= 5;
-	if (mlx_is_key_down(param, MLX_KEY_S))
-		g_img->instances[0].y += 5;
-	if (mlx_is_key_down(param, MLX_KEY_A))
-		g_img->instances[0].x -= 5;
-	if (mlx_is_key_down(param, MLX_KEY_D))
-		g_img->instances[0].x += 5;
-}
-
-int	main(int ac, char *av[])
 {
 	mlx_t	*mlx;
 
-	if (ac == 2)
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_P))
+		mlx_delete_image(mlx, g_img);
+	for (uint32_t x = 0; x < g_img->width; x++)
+		for (uint32_t y = 0; y < g_img->height; y++)
+			mlx_put_pixel(g_img, x, y, rand() % RAND_MAX);
+}
+
+int32_t	main(void)
+{
+	mlx_t	*mlx;
+	xpm_t	*test;
+
+	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	test = mlx_load_xpm42("wall.xpm42");
+	if (!test)
 	{
-		printf("av[1]:%s\n", av[1]);
-		if (check_av_map(av[1]))
-			error_msg(WRONG_MAP);
-		mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
-		if (!mlx)
-			error_msg("Something goes wrong, try it again.");
-		g_img = mlx_new_image(mlx, 128, 128);
-		ft_memset(g_img->pixels, 255, g_img->width * g_img->height
-				* sizeof(int));
-		mlx_image_to_window(mlx, g_img, 0, 0);
-		mlx_loop_hook(mlx, &hook, mlx);
-		mlx_loop(mlx);
-		mlx_terminate(mlx);
-		return (EXIT_SUCCESS);
+		write(1, "MPT GP", 6);
+		return (1);
 	}
-	return (EXIT_FAILURE);
+	g_img = mlx_texture_to_image(mlx, &test->texture);
+	mlx_image_to_window(mlx, g_img, 0, 0);
+	mlx_loop_hook(mlx, &hook, mlx);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
 }
