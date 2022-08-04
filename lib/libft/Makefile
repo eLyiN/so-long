@@ -6,7 +6,7 @@
 #    By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 15:33:13 by aarribas          #+#    #+#              #
-#    Updated: 2022/08/01 19:21:51 by aarribas         ###   ########.fr        #
+#    Updated: 2022/08/03 10:21:19 by aarribas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS    =   ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
         ft_memset.c ft_strchr.c ft_strlen.c ft_strncmp.c ft_strnstr.c \
         ft_tolower.c ft_toupper.c ft_calloc.c ft_strlcpy.c ft_strlcat.c \
         ft_substr.c ft_strjoin.c ft_strtrim.c ft_itoa.c ft_strmapi.c \
-        ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_striteri.c
+        ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_striteri.c \
+		ft_strcmp.c
 OBJS    =   $(SRCS:.c=.o)
 BONUS   =   ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
             ft_lstnew.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
