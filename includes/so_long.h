@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 09:21:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/04 13:48:19 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/06 01:28:24 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ typedef enum mlx_images
 	IMG_COUNT,
 }				t_images;
 
+typedef struct object
+{
+	char		letter;
+	int32_t		x_start;
+	int32_t		x_end;
+	int32_t		y_start;
+	int32_t		y_end;
+	int32_t		instance;
+}				t_object;
+
 typedef struct game_data
 {
 	mlx_t		*mlx;
@@ -66,7 +76,7 @@ typedef struct game_data
 	int32_t		y;
 	mlx_image_t	*img[IMG_COUNT];
 	xpm_t		*xpm[IMG_COUNT];
-
+	t_object	*objs;
 }				t_game;
 
 // Main
@@ -83,6 +93,7 @@ int32_t			check_invalid_char(t_game *shlk);
 int32_t			check_walls(t_game *shlk);
 int32_t			check_objects(t_game *shlk);
 int32_t			check_av_map(char *av);
+int32_t			check_obstacle(t_game *shlk);
 
 // Map Rendering
 

@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:57:38 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/03 13:11:24 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:39:40 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int32_t	count_substr(const char *str, char c)
 			i++;
 		}
 	}
-	return (substr);
+	return (substr * 2);
 }
 
 void	error_msg(char *error)

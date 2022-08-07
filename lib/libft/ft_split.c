@@ -6,11 +6,16 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 11:06:13 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/02 19:13:15 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/08 00:29:04 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* This code has been edited for this proyect, the reason was to make 
+/ a 4x4 coords, to proceed with that i just realized to duplicate my ft_split x2
+/  in every word and line.
+*/
 
 static int	ft_countsubstr(const char *str, char c)
 {
@@ -38,7 +43,7 @@ static int	ft_countsubstr(const char *str, char c)
 			i++;
 		}
 	}
-	return (substr);
+	return (substr * 2);
 }
 
 static char	*ft_wordcreate(const char *str, int start, int finish)
@@ -47,11 +52,14 @@ static char	*ft_wordcreate(const char *str, int start, int finish)
 	int		i;
 
 	i = 0;
-	word = malloc(sizeof(char) * (finish - start + 1));
+	word = malloc(sizeof(char) * ((finish - start + 1) * 2));
 	if (!word)
 		return (NULL);
 	while (start < finish)
+	{
+		word[i++] = str[start];
 		word[i++] = str[start++];
+	}
 	word[i] = '\0';
 	return (word);
 }
@@ -75,6 +83,7 @@ char	**ft_split(char const *s, char c)
 			index = i;
 		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)
 		{
+			arr_sub[j++] = ft_wordcreate(s, index, i);
 			arr_sub[j++] = ft_wordcreate(s, index, i);
 			index = -1;
 		}
