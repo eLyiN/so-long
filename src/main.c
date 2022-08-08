@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 00:42:51 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/08 23:54:39 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/09 00:04:17 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	char_hook(void *data)
 	if (shlk2->lines[y][x] == 'C' || shlk2->lines[y + 2][x + 2] == 'C')
 	{
 		i = check_collec(shlk2, x, y);
-		mlx_set_instance_depth(&shlk2->img[COLLEC]->instances[i], -1000);
+		if (shlk2->objs[i].enable == false)
+			mlx_set_instance_depth(&shlk2->img[COLLEC]->instances[i], -1000);
 	}
 	if (shlk2->lines[y][x] == 'E' && shlk2->collected == shlk2->colletibles)
 		end_game(shlk2);
