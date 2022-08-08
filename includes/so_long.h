@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 09:21:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/06 01:28:24 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/08 23:47:16 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ typedef enum mlx_images
 
 typedef struct object
 {
-	char		letter;
-	int32_t		x_start;
-	int32_t		x_end;
-	int32_t		y_start;
-	int32_t		y_end;
-	int32_t		instance;
+	size_t		x_start;
+	size_t		x_end;
+	size_t		y_start;
+	size_t		y_end;
+	bool		enable;
 }				t_object;
 
 typedef struct game_data
@@ -72,6 +71,7 @@ typedef struct game_data
 	int			colletibles;
 	int			init_pos;
 	int			end_pos;
+	int			collected;
 	int32_t		x;
 	int32_t		y;
 	mlx_image_t	*img[IMG_COUNT];
@@ -87,6 +87,7 @@ void			object_proyect(t_game *shlk, char **str, char obj,
 					mlx_image_t *img);
 void			windowsize_adapt(t_game *shlk);
 int32_t			load_images(t_game *shlk, xpm_t **xpm, mlx_image_t **img);
+void			end_game(t_game *shlk);
 
 // Map checker
 int32_t			check_invalid_char(t_game *shlk);
@@ -106,5 +107,8 @@ int32_t			map_rendering(t_game *shlk);
 void			freedom(char **str);
 int32_t			count_substr(const char *str, char c);
 void			error_msg(char *error);
+
+int32_t			check_collec(t_game *s, size_t x, size_t y);
+void			collec_coords(t_game *s);
 
 #endif

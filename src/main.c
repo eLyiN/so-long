@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 00:42:51 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/08 00:42:56 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/08 23:54:39 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	init_config(t_game *shlk)
 {
 	shlk->width = shlk->lines_size / 2 * BLOCK;
 	shlk->height = shlk->lines_map / 2 * BLOCK;
+	shlk->colletibles = shlk->colletibles / 4;
+	shlk->collected = 0;
 	if (shlk->width > 1024 || shlk->height > 1024)
 		error_msg(BIG_MAP);
 	shlk->mlx = mlx_init(shlk->width, shlk->height, "so_long", true);
@@ -33,6 +35,7 @@ void	char_hook(void *data)
 	t_game	*shlk2;
 	size_t	x;
 	size_t	y;
+	size_t	i;
 
 	shlk2 = data;
 	x = (shlk2->img[CHAR]->instances[0].x / 8);
@@ -47,13 +50,34 @@ void	char_hook(void *data)
 	if (mlx_is_key_down(shlk2->mlx, MLX_KEY_D) && shlk2->lines[y + 1][x
 		+ 2] != '1')
 		shlk2->img[CHAR]->instances[0].x += 0.1;
-	else if (mlx_is_key_down(shlk2->mlx, MLX_KEY_P))
+	if (shlk2->lines[y][x] == 'C' || shlk2->lines[y + 2][x + 2] == 'C')
 	{
-		printf("CHAR[X]=%f\n", shlk2->img[CHAR]->instances[0].x);
-		printf("CHAR[Y]=%f\n", shlk2->img[CHAR]->instances[0].y);
-		printf("AXE[X]=%ld\n", x);
-		printf("AXE[Y]=%ld\n", y);
+		i = check_collec(shlk2, x, y);
+		mlx_set_instance_depth(&shlk2->img[COLLEC]->instances[i], -1000);
 	}
+	if (shlk2->lines[y][x] == 'E' && shlk2->collected == shlk2->colletibles)
+		end_game(shlk2);
+}
+
+int32_t	check_collec(t_game *s, size_t x, size_t y)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < (size_t)s->colletibles)
+	{
+		if (x >= s->objs[i].x_start && x <= s->objs[i].x_end
+			&& y >= s->objs[i].y_start && y <= s->objs[i].y_end
+			&& s->objs[i].enable == true)
+		{
+			s->objs[i].enable = false;
+			s->collected++;
+			printf("rest:%d\n", s->collected);
+			return (i);
+		}
+		i++;
+	}
+	return (0);
 }
 
 int32_t	init_game(t_game *shlk)
@@ -66,10 +90,27 @@ int32_t	init_game(t_game *shlk)
 	object_proyect(shlk, shlk->lines, 'C', shlk->img[COLLEC]);
 	object_proyect(shlk, shlk->lines, 'P', shlk->img[CHAR]);
 	object_proyect(shlk, shlk->lines, 'E', shlk->img[EXIT]);
+	collec_coords(shlk);
 	mlx_loop_hook(shlk->mlx, char_hook, shlk);
 	mlx_loop(shlk->mlx);
-	mlx_terminate(shlk->mlx);
 	return (0);
+}
+
+void	collec_coords(t_game *s)
+{
+	size_t	i;
+
+	i = 0;
+	s->objs = malloc(sizeof(t_object) * s->colletibles);
+	while (i < (size_t)s->colletibles)
+	{
+		s->objs[i].x_start = (s->img[COLLEC]->instances[i].x / 8) - 1;
+		s->objs[i].y_start = (s->img[COLLEC]->instances[i].y / 8) - 1;
+		s->objs[i].x_end = (s->img[COLLEC]->instances[i].x / 8) + 2;
+		s->objs[i].y_end = (s->img[COLLEC]->instances[i].y / 8) + 2;
+		s->objs[i].enable = true;
+		i++;
+	}
 }
 
 int32_t	main(int32_t ac, char *av[])
@@ -91,8 +132,17 @@ int32_t	main(int32_t ac, char *av[])
 			printf("LINE%d: %s\n", fd, shlk.lines[fd]);
 		if (init_game(&shlk))
 			return (1);
-		freedom(shlk.lines);
+		end_game(&shlk);
 		return (EXIT_SUCCESS);
 	}
 	error_msg("No map has been introduced.");
+}
+
+void	end_game(t_game *shlk)
+{
+	mlx_close_window(shlk->mlx);
+	mlx_terminate(shlk->mlx);
+	freedom(shlk->lines);
+	free(shlk->objs);
+	exit(1);
 }
