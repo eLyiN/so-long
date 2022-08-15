@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 00:42:51 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/11 01:05:07 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/11 08:58:29 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int32_t	init_game(t_game *shlk)
 	object_proyect(shlk, shlk->lines, 'P', shlk->img[CHAR]);
 	object_proyect(shlk, shlk->lines, 'E', shlk->img[EXIT]);
 	collec_coords(shlk);
-	mlx_loop_hook(shlk->mlx, char_hook, shlk);
-	mlx_loop(shlk->mlx);
+	init_bonus_game(shlk);
 	return (0);
 }
 

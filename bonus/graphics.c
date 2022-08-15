@@ -6,11 +6,11 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:42:55 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/10 08:59:21 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/11 01:08:03 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	windowsize_adapt(t_game *shlk)
 {

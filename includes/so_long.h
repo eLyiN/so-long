@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 09:21:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/08 23:47:16 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/10 08:57:49 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,11 @@
 
 typedef enum mlx_images
 {
-	STRLIFE,
-	STRMOVE,
 	COLLEC,
 	CHAR,
-	DOOR,
-	TILE,
 	WALL,
 	BG,
 	EXIT,
-	BRICK,
-	SCREEN,
-	GREY,
-	RED,
 	IMG_COUNT,
 }				t_images;
 
@@ -72,8 +64,11 @@ typedef struct game_data
 	int			init_pos;
 	int			end_pos;
 	int			collected;
+	int32_t		old_x;
+	int32_t		old_y;
 	int32_t		x;
 	int32_t		y;
+	size_t		moves;
 	mlx_image_t	*img[IMG_COUNT];
 	xpm_t		*xpm[IMG_COUNT];
 	t_object	*objs;
@@ -83,8 +78,7 @@ typedef struct game_data
 
 int32_t			init_game(t_game *shlk);
 void			init_config(t_game *shlk);
-void			object_proyect(t_game *shlk, char **str, char obj,
-					mlx_image_t *img);
+void			object_proyect(t_game *sh, char **s, char ob, mlx_image_t *img);
 void			windowsize_adapt(t_game *shlk);
 int32_t			load_images(t_game *shlk, xpm_t **xpm, mlx_image_t **img);
 void			end_game(t_game *shlk);
@@ -108,7 +102,12 @@ void			freedom(char **str);
 int32_t			count_substr(const char *str, char c);
 void			error_msg(char *error);
 
+// Char control
+
+void			char_hook(void *s);
 int32_t			check_collec(t_game *s, size_t x, size_t y);
 void			collec_coords(t_game *s);
+void			char_wasd(t_game *sh, int x, int y);
+void			char_moves(t_game *s, int32_t x, int32_t y);
 
 #endif

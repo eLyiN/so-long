@@ -6,11 +6,11 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:58:15 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/10 09:08:09 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/11 01:08:20 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 int32_t	process_map(int32_t fd, t_game *shlk)
 {
