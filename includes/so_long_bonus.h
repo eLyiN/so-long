@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 09:21:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/15 21:16:05 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:04:50 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct game_data_bonus
 	t_game		*shlk;
 	mlx_image_t	*enemy_img[ENEMY_COUNT];
 	xpm_t		*enemy_xpm[ENEMY_COUNT];
+	mlx_image_t	*str;
+	int32_t		str_state;
 	bool		first_time;
 }				t_game_bonus;
 
@@ -47,5 +49,6 @@ int32_t			load_enemy(t_game_bonus *s);
 void			enemy_rotate(t_game_bonus *s, mlx_image_t **enemy);
 void			enemy_reset(t_game_bonus *s, mlx_image_t **enemy);
 void			enemy_encounter(t_game_bonus *s, int32_t x, int32_t y);
+void			print_moves(t_game_bonus *s);
 
 #endif

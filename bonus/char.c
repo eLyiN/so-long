@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 10:07:56 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/15 21:15:46 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/19 13:28:05 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	char_hook(void *s)
 	char_moves(sh->shlk, x, y);
 	enemy_rotate(sh, sh->enemy_img);
 	enemy_encounter(sh, x, y);
+	print_moves(sh);
 	if (sh->shlk->lines[y][x] == 'C' || sh->shlk->lines[y + 2][x + 2] == 'C')
 	{
 		i = check_collec(sh->shlk, x, y);
@@ -112,6 +113,6 @@ void	collec_coords(t_game *s)
 
 void	enemy_encounter(t_game_bonus *s, int32_t x, int32_t y)
 {
-	if (s->en_x == x || s->en_y == y)
+	if (s->en_x == x && s->en_y == y)
 		printf("YOU'RE DEAD");
 }
