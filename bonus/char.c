@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 10:07:56 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/19 13:28:05 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:42:24 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	char_hook(void *s)
 	char_wasd(sh->shlk, x, y);
 	char_moves(sh->shlk, x, y);
 	enemy_rotate(sh, sh->enemy_img);
-	enemy_encounter(sh, x, y);
 	print_moves(sh);
 	if (sh->shlk->lines[y][x] == 'C' || sh->shlk->lines[y + 2][x + 2] == 'C')
 	{
@@ -33,10 +32,11 @@ void	char_hook(void *s)
 		if (sh->shlk->objs[i].enable == false)
 			mlx_set_instance_depth(&sh->shlk->img[COLLEC]->instances[i], -1000);
 	}
-	if (sh->shlk->lines[y][x] == 'E'
+	if ((sh->shlk->lines[y][x] == 'E' || sh->shlk->lines[y + 1][x] == 'E')
 		&& sh->shlk->collected == sh->shlk->colletibles)
 		end_game(sh->shlk);
-	if (mlx_is_key_down(sh->shlk->mlx, MLX_KEY_ESCAPE))
+	if (mlx_is_key_down(sh->shlk->mlx, MLX_KEY_ESCAPE) || (sh->en_x == x
+			&& sh->en_y == y))
 		end_game(sh->shlk);
 }
 
@@ -109,10 +109,4 @@ void	collec_coords(t_game *s)
 		s->objs[i].enable = true;
 		i++;
 	}
-}
-
-void	enemy_encounter(t_game_bonus *s, int32_t x, int32_t y)
-{
-	if (s->en_x == x && s->en_y == y)
-		printf("YOU'RE DEAD");
 }

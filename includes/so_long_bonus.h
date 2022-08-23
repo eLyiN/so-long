@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 09:21:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/08/19 14:04:50 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:42:11 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ int32_t			load_image_enemy(t_game_bonus *s, mlx_image_t **en_img,
 int32_t			load_enemy(t_game_bonus *s);
 void			enemy_rotate(t_game_bonus *s, mlx_image_t **enemy);
 void			enemy_reset(t_game_bonus *s, mlx_image_t **enemy);
-void			enemy_encounter(t_game_bonus *s, int32_t x, int32_t y);
 void			print_moves(t_game_bonus *s);
+void			c_state_0(t_game_bonus *s, mlx_image_t **enemy);
+void			c_state_1(t_game_bonus *s, mlx_image_t **enemy);
+void			c_state_2(t_game_bonus *s, mlx_image_t **enemy);
+void			c_state_3(t_game_bonus *s, mlx_image_t **enemy);
 
 #endif
